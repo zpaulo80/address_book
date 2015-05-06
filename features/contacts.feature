@@ -75,6 +75,6 @@ Feature: Contacts test scenarios
     When i create a contact with characteristics
       | groupId | name      | phone      |
       | 2       | charlotte | +123456789 |
-    And the operation has success
+    And the operation returns code "400"
 
-    When i consult the last address book
+    And i consult the last address book
