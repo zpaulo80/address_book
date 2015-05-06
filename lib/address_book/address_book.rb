@@ -1,3 +1,5 @@
+# Methods to work with address_book
+# @author jose paulo martins
 module Address_book
   include Address_book_requests
   include HTTP

@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'httparty'
+# Methods to work HTTParty
+# @author jose paulo martins
 module HTTP
   include Log
 

@@ -1,3 +1,5 @@
+# Methods write logs with diferent levels
+# @author jose paulo martins
 module Log
   require 'log4r'
   require 'colored'

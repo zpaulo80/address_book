@@ -1,3 +1,5 @@
+# Generic methods to requests
+# @author jose paulo martins
 module Address_book_requests
   include Log
   require 'json'
