@@ -1,19 +1,19 @@
 Feature: Contacts test scenarios
 
   Background: Delete address book
-    Given I search all the candidate's books
+    Given i search all the candidate's books
     And i remove all the candidate's books
     And i create a address book with characteristics
       | username  | password  |
       | josepaulo | josepaulo |
-    And a create a group with characteristics
+    And i create a group with characteristics
       | id | name   | description    |
       | 1  | family | my dear family |
 
   @contacts @blocker
   Scenario: Create a contact in a group
     Given i consult the last address book
-    And my address book have "1" group
+    And my address book have "1" groups
     When i create a contact with characteristics
       | groupId | name      | phone      |
       | 1       | charlotte | +123456789 |
@@ -22,7 +22,7 @@ Feature: Contacts test scenarios
   @contacts @major
   Scenario: Change a contact in a group
     Given i consult the last address book
-    And my address book have "1" group
+    And my address book have "1" groups
     And i create a contact with characteristics
       | groupId | name      | phone      |
       | 1       | charlotte | +123456789 |
@@ -40,7 +40,7 @@ Feature: Contacts test scenarios
   @contacts @critical
   Scenario: Delete a contact
     Given i consult the last address book
-    And my address book have "1" group
+    And my address book have "1" groups
     And i create a contact with characteristics
       | groupId | name      | phone      |
       | 1       | charlotte | +123456789 |
@@ -55,7 +55,7 @@ Feature: Contacts test scenarios
   @contacts @major
   Scenario: Create several contacts in address book
     Given i consult the last address book
-    And my address book have "1" group
+    And my address book have "1" groups
     When i create a contact with characteristics
       | groupId | name      | phone       |
       | 1       | charlotte | +1234567890 |
@@ -71,7 +71,7 @@ Feature: Contacts test scenarios
   @contacts @minor
   Scenario: Create a contact to a unexistent group
     Given i consult the last address book
-    And my address book have "1" group
+    And my address book have "1" groups
     When i create a contact with characteristics
       | groupId | name      | phone      |
       | 2       | charlotte | +123456789 |
@@ -82,10 +82,10 @@ Feature: Contacts test scenarios
   @contacts @minor
   Scenario: Invalid number format
     Given i consult the last address book
-    And my address book have "1" group
+    And my address book have "1" groups
     When i create a contact with characteristics
       | groupId | name      | phone      |
-      | 2       | charlotte | +1234 &656sdf 789 |
+      | 2       | charlotte | +1234 &656sdf789 |
     And the operation returns code "400"
 
     And i consult the last address book

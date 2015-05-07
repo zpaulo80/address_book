@@ -1,17 +1,17 @@
 Feature: Address book test scenarios
 
   Background: Delete address book
-    Given I search all the candidate's books
+    Given i search all the candidate's books
     Given i remove all the candidate's books
 
-  @address_book
+  @address_book @blocker
   Scenario: Create address book
     When i create a address book with characteristics
       | username  | password  |
       | josepaulo | josepaulo |
     Then the operation has success
 
-  @address_book
+  @address_book @minor
   Scenario: Create two Address books for same user
     Given i create a address book with characteristics
       | username  | password  |
@@ -21,12 +21,12 @@ Feature: Address book test scenarios
       | username  | password  |
       | josepaulo | josepaulo |
     Then the operation has success
-    And I search all the candidate's books
+    And i search all the candidate's books
     And the candidate will have "2" address books
 
 
-  @address_book
-  Scenario: Update address book
+  @address_book @major
+  Scenario: Update address book password
     Given i create a address book with characteristics
       | username  | password  |
       | josepaulo | josepaulo |
@@ -39,7 +39,22 @@ Feature: Address book test scenarios
       | username  | password  |
       | josepaulo | paulojose |
 
-  @address_book
+
+  @address_book @major
+  Scenario: Update address book username
+    Given i create a address book with characteristics
+      | username  | password  |
+      | josepaulo | josepaulo |
+    And the operation has success
+    When i change a address book characteristics to
+      | username | password  |
+      | jose     | josepaulo |
+    Then the operation has success
+    And the address book has characteristics
+      | username | password  |
+      | jose     | josepaulo |
+
+  @address_book @minor
   Scenario: Remove address book
     Given i create a address book with characteristics
       | username  | password  |

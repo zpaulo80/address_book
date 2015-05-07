@@ -1,17 +1,17 @@
 # -*- encoding : utf-8 -*-
 
-Given(/^I search all the candidate\'s books$/) do
+Given(/^i search all the candidate\'s books$/) do
   Log.debug "Candidate: #{$candidate}"
-  @candidate_address_books = Address_book.get_all_address_books_by_candidate $candidate
-  Log.info @candidate_address_books
-  Log.lwarn 'No address books for candidate.' if @candidate_address_books.nil?
+  @response = Address_book.get_all_address_books_by_candidate $candidate
+  Log.info @response
+  Log.lwarn 'No address books for candidate.' if @response.nil?
 
 end
 
 Given(/^i remove all the candidate\'s books$/) do
-  unless @candidate_address_books.nil?
+  unless @response.nil?
 
-    @candidate_address_books['value'].each do |hash|
+    @response['value'].each do |hash|
       Log.debug "Remove address book with id #{hash['id']} from candidate #{$candidate}"
       @result = Address_book.delete_address_book $candidate, hash['id']
       Log.info @result
@@ -32,15 +32,15 @@ end
 
 Then(/^i consult the last address book$/) do
   raise 'No address book id defined' if @address_book_id.nil?
-  @candidate_address_books = Address_book.get_address_book $candidate, @address_book_id
-  Log.info @candidate_address_books
+  @response = Address_book.get_address_book $candidate, @address_book_id
+  Log.info @response
 end
 
 Then(/^i remove the last address book$/) do
   raise 'No candidate defined' if $candidate.nil?
   raise 'No address book id defined' if @address_book_id.nil?
-  @candidate_address_books = Address_book.delete_address_book $candidate, @address_book_id
-  Log.debug @candidate_address_books
+  @response = Address_book.delete_address_book $candidate, @address_book_id
+  Log.debug @response
 end
 
 Then(/^Then the address book does not exists$/) do
@@ -49,20 +49,20 @@ Then(/^Then the address book does not exists$/) do
 end
 
 And(/^the candidate will have "([^"]*)" address books$/) do |number|
-  Log.info "Number of address books: Expected: #{number}, Got: #{@candidate_address_books['value'].size.to_i}"
-  assert_equal(number.to_i, @candidate_address_books['value'].size.to_i)
+  Log.info "Number of address books: Expected: #{number}, Got: #{@response['value'].size.to_i}"
+  assert_equal(number.to_i, @response['value'].size.to_i)
 end
 
 When(/^i change a address book characteristics to$/) do |table|
   table.hashes.each do |hash|
-    @result = Address_book.update_address_book $candidate, hash, @address_book_id
+    @response = Address_book.update_address_book $candidate, hash, @address_book_id
     Log.info "Updated address book with id #{@address_book_id}"
   end
 end
 
 And(/^the address book has characteristics$/) do |table|
-  @got_address_book = Address_book.get_address_book $candidate, @address_book_id
-  @got_address_book = @got_address_book['value']
+  @response = Address_book.get_address_book $candidate, @address_book_id
+  @got_address_book = @response['value']
   Log.info @got_address_book
   table.hashes.each do |hash|
     hash.each do |key, value|
@@ -72,11 +72,11 @@ And(/^the address book has characteristics$/) do |table|
 end
 
 Then(/^the address book does not exists$/) do
-  Log.info "Address book: #{@candidate_address_books['value']}"
-  assert_equal(nil, @candidate_address_books['value'])
+  Log.info "Address book: #{@response['value']}"
+  assert_equal(nil, @response['value'])
 end
 
 Given(/^i have a address book$/) do
-  Log.info "Address book: #{@candidate_address_books['value']}"
-  assert_equal('Hash', @candidate_address_books['value'].class.to_s)
+  Log.info "Address book: #{@response['value']}"
+  assert_equal('Hash', @response['value'].class.to_s)
 end

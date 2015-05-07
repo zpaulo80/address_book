@@ -33,11 +33,11 @@ When(/^i delete the contact with name "([^"]*)"$/) do |name|
 end
 
 And(/^the address book does not have contacts$/) do
-  Log.debug "Address book contacts list size: #{@candidate_address_books['value']['contacts'].size}"
-  assert_equal(0, @candidate_address_books['value']['contacts'].size, 'No contacts expected in address book')
+  Log.debug "Address book contacts list size: #{@response['value']['contacts'].size}"
+  assert_equal(0, @response['value']['contacts'].size, 'No contacts expected in address book')
 end
 
 Then(/^the address book have "([^"]*)" contacts$/) do |size|
-  Log.debug "Address book contacts list size: #{@candidate_address_books['value']['contacts'].size}"
-  assert_equal(size.to_i, @candidate_address_books['value']['contacts'].size.to_i, 'No contacts expected in address book')
+  Log.debug "Address book contacts list size: #{@response['value']['contacts'].size}"
+  assert_equal(size.to_i, @response['value']['contacts'].size.to_i, 'No contacts expected in address book')
 end
