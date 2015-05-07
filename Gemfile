@@ -1,8 +1,9 @@
-source "http://rubygems.org"
+source 'https://rubygems.org'
 
-gem 'cucumber'
+
+gem 'httparty', '~> 0.11.0'
+gem 'cucumber', '1.1.9'
 gem 'awesome_print'
 gem 'log4r'
 gem 'colored'
 gem 'json'
-gem 'httparty'
