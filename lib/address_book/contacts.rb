@@ -11,7 +11,7 @@ module Contacts
   def create_contact(candidate, book_id, properties)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/contacts/'
     body = Address_book_requests.requests properties
-    @response = (post url, {body: body, headers: Address_book_requests.default_headers})
+    @response = (post url, {:body => body, :headers => Address_book_requests.default_headers})
   end
 
   # @param candidate [String] Owner of the address book
@@ -22,7 +22,7 @@ module Contacts
   def update_contact(candidate, book_id, properties, name)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/contacts/' + name
     body = Address_book_requests.requests properties
-    @response = (put url, {body: body, headers: Address_book_requests.default_headers})
+    @response = (put url, {:body => body, :headers => Address_book_requests.default_headers})
   end
 
   # @param candidate [String] Owner of the address book

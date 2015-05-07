@@ -11,7 +11,7 @@ module Groups
   def create_contact_group(candidate, book_id, properties)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/groups/'
     body = Address_book_requests.requests properties
-    @response = (post url, {body: body, headers: Address_book_requests.default_headers})
+    @response = (post url, {:body => body, :headers => Address_book_requests.default_headers})
   end
 
   # @param candidate [String] Owner of the address book
@@ -22,7 +22,7 @@ module Groups
   def change_contact_group(candidate, book_id, properties, group_id)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/groups/'+ group_id
     body = Address_book_requests.requests properties
-    @response = (put url, {body: body, headers: Address_book_requests.default_headers})
+    @response = (put url, {:body => body, :headers => Address_book_requests.default_headers})
   end
 
   # @param candidate [String] Owner of the address book
