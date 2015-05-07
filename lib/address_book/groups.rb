@@ -31,7 +31,7 @@ module Groups
   # @return [Hash] Hash with HTTP Response
   def consult_contact_group(candidate, book_id, group_id)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/groups/'+ group_id
-    @response = (get url, {headers: Address_book_requests.default_headers})
+    @response = (get url, {:headers => Address_book_requests.default_headers})
   end
 
   # @param candidate [String] Owner of the address book
@@ -40,7 +40,7 @@ module Groups
   # @return [Hash] Hash with HTTP Response
   def delete_contact_group(candidate, book_id, group_id)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/groups/'+ group_id
-    @response = (delete url, {headers: Address_book_requests.default_headers})
+    @response = (delete url, {:headers => Address_book_requests.default_headers})
   end
 
   extend self
