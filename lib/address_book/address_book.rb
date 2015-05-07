@@ -28,7 +28,7 @@ module Address_book
   # @return [Hash] Hash with HTTP Response
   def get_address_book(candidate, id)
     url = Address_book_requests.default_url + '/' + candidate + '/' + id
-    get url, {:headers => Address_book_requests.default_headers}
+    @response = (get url, {:headers => Address_book_requests.default_headers})
   end
 
   # @param candidate [String] Owner of the address book
@@ -43,7 +43,7 @@ module Address_book
   # @return [Hash] Hash with HTTP Response
   def delete_address_book(candidate, id)
     url = Address_book_requests.default_url + '/' + candidate + '/' + id
-    delete url, {:headers => Address_book_requests.default_headers}
+    @response = (delete url, {:headers => Address_book_requests.default_headers})
   end
   extend self
 end

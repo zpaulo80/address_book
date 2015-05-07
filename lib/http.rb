@@ -58,7 +58,6 @@ module HTTP
   # @option parameters [String] :headers request headers (optional)
   # @return [HTTParty] @response
   def delete(url, parameters = {:headers => nil})
-    parameters[:format] ||= 'xml'
     Log.debug "DELETE:  #{url}"
     Log.debug "Headers: #{parameters[:headers].inspect}"
     @response = HTTParty.delete(url, parameters)

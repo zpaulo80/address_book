@@ -40,6 +40,7 @@ Then(/^i remove the last address book$/) do
   raise 'No candidate defined' if $candidate.nil?
   raise 'No address book id defined' if @address_book_id.nil?
   @candidate_address_books = Address_book.delete_address_book $candidate, @address_book_id
+  Log.debug @candidate_address_books
 end
 
 Then(/^Then the address book does not exists$/) do
@@ -71,9 +72,11 @@ And(/^the address book has characteristics$/) do |table|
 end
 
 Then(/^the address book does not exists$/) do
+  Log.info "Address book: #{@candidate_address_books['value']}"
   assert_equal(nil, @candidate_address_books['value'])
 end
 
 Given(/^i have a address book$/) do
+  Log.info "Address book: #{@candidate_address_books['value']}"
   assert_equal('Hash', @candidate_address_books['value'].class.to_s)
 end
