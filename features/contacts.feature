@@ -78,3 +78,14 @@ Feature: Contacts test scenarios
     And the operation returns code "400"
 
     And i consult the last address book
+
+  @contacts @minor
+  Scenario: Invalid number format
+    Given i consult the last address book
+    And my address book have "1" group
+    When i create a contact with characteristics
+      | groupId | name      | phone      |
+      | 2       | charlotte | +1234 &656sdf 789 |
+    And the operation returns code "400"
+
+    And i consult the last address book

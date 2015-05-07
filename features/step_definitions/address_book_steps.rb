@@ -47,8 +47,9 @@ Then(/^Then the address book does not exists$/) do
   assert_equal(@result.code.to_i, 404)
 end
 
-And(/^the candidate will have "([^"]*)" address books$/) do |arg|
-  assert_equal(arg.to_i, @candidate_address_books['value'].size.to_i)
+And(/^the candidate will have "([^"]*)" address books$/) do |number|
+  Log.info "Number of address books: Expected: #{number}, Got: #{@candidate_address_books['value'].size.to_i}"
+  assert_equal(number.to_i, @candidate_address_books['value'].size.to_i)
 end
 
 When(/^i change a address book characteristics to$/) do |table|
