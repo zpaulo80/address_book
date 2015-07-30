@@ -7,7 +7,7 @@ module Log
   require 'awesome_print'
   include Log4r
 
-  @log = Logger.new 'logger'
+  @log = Logger.new 'log'
   @log.outputters = Outputter.stdout
   @log.level = DEBUG
 

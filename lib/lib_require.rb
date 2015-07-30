@@ -10,4 +10,9 @@ require File.join(File.dirname(__FILE__), 'address_book', '/contacts.rb')
 
 $candidate = 'josep'
 
-Log.info '>>>>>>>>>>>>>>>>>> Starting running Features <<<<<<<<<<<<<<<<<<<<'
+Log.debug '>>>>>>>>>>>>>>>>>> Start running Features <<<<<<<<<<<<<<<<<<<<'
+
+at_exit do
+  Log.debug '>>>>>>>>>>>>>>>>>> Stop running Features <<<<<<<<<<<<<<<<<<<<'
+end
+

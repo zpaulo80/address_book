@@ -11,7 +11,7 @@ module Contacts
   def create_contact(candidate, book_id, properties)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/contacts/'
     body = Address_book_requests.requests properties
-    @response = (post url, {:body => body, :headers => Address_book_requests.default_headers})
+    post url, {:body => body}
   end
 
   # @param candidate [String] Owner of the address book
@@ -22,7 +22,7 @@ module Contacts
   def update_contact(candidate, book_id, properties, name)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/contacts/' + name
     body = Address_book_requests.requests properties
-    @response = (put url, {:body => body, :headers => Address_book_requests.default_headers})
+    put url, {:body => body}
   end
 
   # @param candidate [String] Owner of the address book
@@ -31,7 +31,7 @@ module Contacts
   # @return [Hash] Hash with HTTP Response
   def consult_contact(candidate, book_id, name)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/contacts/' + name
-    @response = (get url, {:headers => Address_book_requests.default_headers})
+    get url
   end
 
   # @param candidate [String] Owner of the address book
@@ -40,7 +40,7 @@ module Contacts
   # @return [Hash] Hash with HTTP Response
   def delete_contact(candidate, book_id, name)
     url = Address_book_requests.default_url + '/' + candidate + '/' + book_id + '/contacts/' + name
-    @response = (delete url, {:headers => Address_book_requests.default_headers})
+    delete url
   end
 
   extend self

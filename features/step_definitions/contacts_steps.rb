@@ -2,7 +2,6 @@ When(/^i create a contact with characteristics$/) do |table|
   table.hashes.each do |hash|
     Log.debug hash
     @contact = Contacts.create_contact $candidate, @address_book_id, hash
-    Log.info @contact
   end
 end
 
@@ -10,13 +9,11 @@ When(/^i change a contact with characteristics$/) do |table|
   table.hashes.each do |hash|
     Log.debug hash
     @contact = Contacts.update_contact $candidate, @address_book_id, hash, hash['name']
-    Log.info @contact
   end
 end
 
 When(/^i consult the contact "([^"]*)"$/) do |name|
   @contact = Contacts.consult_contact $candidate, @address_book_id, name
-  Log.info @contact
 end
 
 Then(/^the contact have characteristics$/) do |table|
@@ -29,7 +26,6 @@ end
 
 When(/^i delete the contact with name "([^"]*)"$/) do |name|
   @contact = Contacts.delete_contact $candidate, @address_book_id, name
-  Log.info @contact
 end
 
 And(/^the address book does not have contacts$/) do

@@ -3,7 +3,6 @@ When(/^i create a group with characteristics$/) do |table|
     Log.debug hash
     @response = Groups.create_contact_group $candidate, @address_book_id, hash
     @last_group_id = hash['id']
-    Log.info @group
   end
 end
 
@@ -28,12 +27,10 @@ end
 
 When(/^i consult the last (created|updated) group$/) do |action|
   @response = Groups.consult_contact_group $candidate, @address_book_id, @last_group_id
-  Log.info @response
 end
 
 When(/^i remove the last created group$/) do
   @response = Groups.delete_contact_group $candidate, @address_book_id, @last_group_id
-  Log.info @response
 end
 
 Then(/^the group does not exist$/) do
@@ -45,7 +42,6 @@ When(/^i change a group to$/) do |table|
     Log.debug hash
     @response = Groups.change_contact_group $candidate, @address_book_id, hash, hash['id']
     @last_group_id = hash['id']
-    Log.info @response
   end
 end
 

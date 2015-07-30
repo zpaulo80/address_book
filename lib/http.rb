@@ -3,20 +3,23 @@ require 'httparty'
 # Methods to work HTTParty
 # @author jose paulo martins
 module HTTP
+  attr_accessor :http_response
   include Log
 
+  public
   # Http GET Request
   # @param url [String] target url
   # @param parameters [Hash] request attributes
   # @option parameters [String] :headers request headers (optional)
   # @option parameters [String] :query request query (optional)
   # @return [HTTParty] response
-  def get(url, parameters = {:headers => nil, :query => nil})
-    @response = HTTParty.get(url, parameters)
-    Log.debug "GET:  #{@response.request.path}"
-    Log.debug "Response: #{@response.code} HTTP CODE"
-    #Log.debug "Response headers: #{@response.headers.inspect}" unless @response.headers.nil?
-    @response
+  def get url, args={}
+    args = {
+        headers: default_headers,
+        format: :json
+    }.recursive_merge args
+
+    return execute_http_request :get, url, args
   end
 
   # Http POST Request
@@ -25,15 +28,13 @@ module HTTP
   # @option parameters [String] :body request body (optional)
   # @option parameters [String] :headers request headers (optional)
   # @return [HTTParty] @response
-  def post(url, parameters = {:body => nil, :headers => nil})
-    Log.debug "POST:  #{url}"
-    Log.debug "Headers: #{parameters[:headers].inspect}"
-    Log.debug "Body: #{parameters[:body]}" unless parameters[:body].nil?
+  def post url, args={}
+      args = {
+          headers: default_headers,
+          format: :json
+      }.recursive_merge args
 
-    @response = HTTParty.post(url, parameters)
-    Log.debug "Response: #{@response.code} HTTP CODE"
-    #Log.debug "Response headers: #{@response.headers.inspect}" unless @response.headers.nil?
-    @response
+    return execute_http_request :post, url, args
   end
 
   # Http PUT Request
@@ -42,14 +43,13 @@ module HTTP
   # @option parameters [String] :body request body (optional)
   # @option parameters [String] :headers request headers (optional)
   # @return [HTTParty] @response
-  def put(url, parameters = {:body => nil, :headers => nil})
-    Log.debug "PUT:  #{url}"
-    Log.debug "Headers: #{parameters[:headers].inspect}"
-    Log.debug "Body: #{parameters[:body]}" unless parameters[:body].nil?
-    @response = HTTParty.put(url, parameters)
-    Log.debug "Response: #{@response.code} HTTP CODE"
-    #Log.debug "Response headers: #{@response.headers.inspect}" unless @response.headers.nil?
-    @response
+  def put url, args={}
+    args = {
+        headers: default_headers,
+        format: :json
+    }.recursive_merge args
+
+    return execute_http_request :put, url, args
   end
 
   # Http DELETE Request
@@ -57,13 +57,41 @@ module HTTP
   # @param parameters [Hash] request attributes
   # @option parameters [String] :headers request headers (optional)
   # @return [HTTParty] @response
-  def delete(url, parameters = {:headers => nil})
-    Log.debug "DELETE:  #{url}"
-    Log.debug "Headers: #{parameters[:headers].inspect}"
-    @response = HTTParty.delete(url, parameters)
-    Log.debug "Response: #{@response.code} HTTP CODE"
-    @response
+  def delete url, args={}
+    args = {
+        headers: default_headers,
+        format: :json
+    }.recursive_merge args
+
+    return execute_http_request :delete, url, args
   end
 
-  extend self
+  private
+  # Generic HTTP Request execution. Logs relevant info and translates protocol codes.
+  # @param [String] method - which HTTP method to use. Must conform to one of the methods in HTTP (get,post,delete,put)
+  # @param [String] url - the url to send the request
+  # @param [Hash] args - request attributes
+  def execute_http_request method, url, args
+    @http_request = method, url.clone, args.clone
+    self.http_response = HTTParty.send method, url, args
+    Log.debug "#{@http_response.request.http_method.to_s.split('::').last.upcase} - URL: #{@http_response.request.last_uri}"
+    Log.debug "HEADER:"
+    Log.debug http_response.request.options[:headers]
+    # Log.debug @http_response.request.options[:body] if @http_response.request.options[:body]
+    Log.debug "BODY:" if http_response
+    Log.debug http_response if http_response
+    return http_response
+  end
+
+end
+
+
+class Hash
+
+  def recursive_merge(other_hash)
+    self.merge(other_hash) do |key, _old, _new|
+      _old.is_a?(Hash) ? _old.recursive_merge(_new) : _new
+    end
+  end
+
 end

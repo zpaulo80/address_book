@@ -12,7 +12,6 @@ module Address_book_requests
   # @return [Hash] Hash of headers request
   def default_headers
     headers = {'Content-type' => 'application/json'}
-    Log.debug "#{headers}"
     headers
   end
 

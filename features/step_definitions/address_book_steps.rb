@@ -3,21 +3,20 @@
 Given(/^i search all the candidate\'s books$/) do
   Log.debug "Candidate: #{$candidate}"
   @response = Address_book.get_all_address_books_by_candidate $candidate
-  Log.info @response
   Log.lwarn 'No address books for candidate.' if @response.nil?
 
 end
 
 Given(/^i remove all the candidate\'s books$/) do
-  unless @response.nil?
+  raise 'No previous response found' if @response.nil?
+  if !@response['value'].empty?
 
     @response['value'].each do |hash|
       Log.debug "Remove address book with id #{hash['id']} from candidate #{$candidate}"
       @result = Address_book.delete_address_book $candidate, hash['id']
-      Log.info @result
     end
   else
-    Log.debug 'No address books no remove...'
+    Log.lwarn 'No address books to remove...'
   end
 
 end
@@ -33,14 +32,12 @@ end
 Then(/^i consult the last address book$/) do
   raise 'No address book id defined' if @address_book_id.nil?
   @response = Address_book.get_address_book $candidate, @address_book_id
-  Log.info @response
 end
 
 Then(/^i remove the last address book$/) do
   raise 'No candidate defined' if $candidate.nil?
   raise 'No address book id defined' if @address_book_id.nil?
   @response = Address_book.delete_address_book $candidate, @address_book_id
-  Log.debug @response
 end
 
 Then(/^Then the address book does not exists$/) do
