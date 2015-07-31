@@ -25,6 +25,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.5.5)
     redcarpet (3.3.2)
+    tempdir (0.0.1)
 
 PLATFORMS
   ruby
@@ -44,3 +45,4 @@ DEPENDENCIES
   multi_test (= 0.1.2)
   multi_xml (= 0.5.5)
   redcarpet (= 3.3.2)
+  tempdir (= 0.0.1)

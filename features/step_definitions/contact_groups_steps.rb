@@ -1,7 +1,7 @@
 When(/^i create a group with characteristics$/) do |table|
   table.hashes.each do |hash|
     Log.debug hash
-    @response = Groups.create_contact_group $candidate, @address_book_id, hash
+    @response = Groups.create_contact_group $test_run.config['settings']['candidate'], @address_book_id, hash
     @last_group_id = hash['id']
   end
 end
@@ -11,7 +11,7 @@ Then(/^my address book have "([^"]*)" groups$/) do |num_of_groups|
 end
 
 And(/^the group with id "([^"]*)" have characteristics$/) do |id, table|
-  @response = Address_book.get_address_book $candidate, @address_book_id
+  @response = Address_book.get_address_book $test_run.config['settings']['candidate'], @address_book_id
   @got_address_book_group = @response['value']['groups']
   Log.info @got_address_book_group
   table.hashes.each do |hash|
@@ -26,11 +26,11 @@ And(/^the group with id "([^"]*)" have characteristics$/) do |id, table|
 end
 
 When(/^i consult the last (created|updated) group$/) do |action|
-  @response = Groups.consult_contact_group $candidate, @address_book_id, @last_group_id
+  @response = Groups.consult_contact_group $test_run.config['settings']['candidate'], @address_book_id, @last_group_id
 end
 
 When(/^i remove the last created group$/) do
-  @response = Groups.delete_contact_group $candidate, @address_book_id, @last_group_id
+  @response = Groups.delete_contact_group $test_run.config['settings']['candidate'], @address_book_id, @last_group_id
 end
 
 Then(/^the group does not exist$/) do
@@ -40,7 +40,7 @@ end
 When(/^i change a group to$/) do |table|
   table.hashes.each do |hash|
     Log.debug hash
-    @response = Groups.change_contact_group $candidate, @address_book_id, hash, hash['id']
+    @response = Groups.change_contact_group $test_run.config['settings']['candidate'], @address_book_id, hash, hash['id']
     @last_group_id = hash['id']
   end
 end

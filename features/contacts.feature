@@ -11,6 +11,7 @@ Feature: Contacts test scenarios
       | 1  | family | my dear family |
 
   @contacts @blocker
+  @TEST_ID-6
   Scenario: Create a contact in a group
     Given i consult the last address book
     And my address book have "1" groups
@@ -20,6 +21,7 @@ Feature: Contacts test scenarios
     And the operation has success
 
   @contacts @major
+  @TEST_ID-7
   Scenario: Change a contact in a group
     Given i consult the last address book
     And my address book have "1" groups
@@ -38,6 +40,7 @@ Feature: Contacts test scenarios
       | 1       | charlotte | +12345678900 |
 
   @contacts @critical
+  @TEST_ID-8
   Scenario: Delete a contact
     Given i consult the last address book
     And my address book have "1" groups
@@ -53,6 +56,7 @@ Feature: Contacts test scenarios
 
 
   @contacts @major
+  @TEST_ID-9
   Scenario: Create several contacts in address book
     Given i consult the last address book
     And my address book have "1" groups
@@ -69,6 +73,7 @@ Feature: Contacts test scenarios
     Then the address book have "6" contacts
 
   @contacts @minor
+  @TEST_ID-10
   Scenario: Create a contact to a unexistent group
     Given i consult the last address book
     And my address book have "1" groups
@@ -80,11 +85,12 @@ Feature: Contacts test scenarios
     And i consult the last address book
 
   @contacts @minor
+  @TEST_ID-11
   Scenario: Invalid number format
     Given i consult the last address book
     And my address book have "1" groups
     When i create a contact with characteristics
-      | groupId | name      | phone      |
+      | groupId | name      | phone            |
       | 2       | charlotte | +1234 &656sdf789 |
     And the operation returns code "400"
 

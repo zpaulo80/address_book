@@ -4,7 +4,8 @@ Feature: Address book test scenarios
     Given i search all the candidate's books
     Given i remove all the candidate's books
 
-  @address_book @blocker
+  @address_book @blocker @qwerty
+  @TEST_ID_1
   Scenario: Create address book
     When i create a address book with characteristics
       | username  | password  |
@@ -12,6 +13,7 @@ Feature: Address book test scenarios
     Then the operation has success
 
   @address_book @minor
+  @TEST_ID_2
   Scenario: Create two Address books for same user
     Given i create a address book with characteristics
       | username  | password  |
@@ -26,6 +28,7 @@ Feature: Address book test scenarios
 
 
   @address_book @major
+  @TEST_ID_3
   Scenario: Update address book password
     Given i create a address book with characteristics
       | username  | password  |
@@ -41,6 +44,7 @@ Feature: Address book test scenarios
 
 
   @address_book @major
+  @TEST_ID_4
   Scenario: Update address book username
     Given i create a address book with characteristics
       | username  | password  |
@@ -55,6 +59,7 @@ Feature: Address book test scenarios
       | jose     | josepaulo |
 
   @address_book @minor
+  @TEST_ID_5
   Scenario: Remove address book
     Given i create a address book with characteristics
       | username  | password  |

@@ -4,7 +4,7 @@ module Address_book
   include Address_book_requests
   include HTTP
 
-  def address_book_url candidate
+  def address_book_url (candidate)
     Address_book_requests.default_url + '/' + candidate
   end
 
@@ -37,7 +37,7 @@ module Address_book
 
   # @param candidate [String] Owner of the address book
   # @return [Hash] Hash with HTTP Response
-  def get_all_address_books_by_candidate(candidate)
+  def get_addr_books_by_candidate(candidate)
     url = (address_book_url candidate)
     get url
   end

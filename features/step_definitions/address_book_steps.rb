@@ -1,19 +1,18 @@
 # -*- encoding : utf-8 -*-
 
-Given(/^i search all the candidate\'s books$/) do
-  Log.debug "Candidate: #{$candidate}"
-  @response = Address_book.get_all_address_books_by_candidate $candidate
+Given(/^i search all the candidate's books$/) do
+  Log.debug "Candidate: #{$test_run.config['settings']['candidate']}"
+  @response = Address_book.get_addr_books_by_candidate $test_run.config['settings']['candidate']
   Log.lwarn 'No address books for candidate.' if @response.nil?
-
 end
 
-Given(/^i remove all the candidate\'s books$/) do
+Given(/^i remove all the candidate's books$/) do
   raise 'No previous response found' if @response.nil?
   if !@response['value'].empty?
 
     @response['value'].each do |hash|
-      Log.debug "Remove address book with id #{hash['id']} from candidate #{$candidate}"
-      @result = Address_book.delete_address_book $candidate, hash['id']
+      Log.debug "Remove address book with id #{hash['id']} from candidate #{$test_run.config['settings']['candidate']}"
+      @result = Address_book.delete_address_book $test_run.config['settings']['candidate'], hash['id']
     end
   else
     Log.lwarn 'No address books to remove...'
@@ -23,7 +22,7 @@ end
 
 When(/^i create a address book with characteristics$/) do |table|
   table.hashes.each do |hash|
-    result = Address_book.create_address_book $candidate, hash
+    result = Address_book.create_address_book $test_run.config['settings']['candidate'], hash
     @address_book_id = result['value']['id']
     Log.info "Created address book with id #{@address_book_id}"
   end
@@ -31,13 +30,13 @@ end
 
 Then(/^i consult the last address book$/) do
   raise 'No address book id defined' if @address_book_id.nil?
-  @response = Address_book.get_address_book $candidate, @address_book_id
+  @response = Address_book.get_address_book $test_run.config['settings']['candidate'], @address_book_id
 end
 
 Then(/^i remove the last address book$/) do
-  raise 'No candidate defined' if $candidate.nil?
+  raise 'No candidate defined' if $test_run.config['settings']['candidate'].nil?
   raise 'No address book id defined' if @address_book_id.nil?
-  @response = Address_book.delete_address_book $candidate, @address_book_id
+  @response = Address_book.delete_address_book $test_run.config['settings']['candidate'], @address_book_id
 end
 
 Then(/^Then the address book does not exists$/) do
@@ -52,13 +51,13 @@ end
 
 When(/^i change a address book characteristics to$/) do |table|
   table.hashes.each do |hash|
-    @response = Address_book.update_address_book $candidate, hash, @address_book_id
+    @response = Address_book.update_address_book $test_run.config['settings']['candidate'], hash, @address_book_id
     Log.info "Updated address book with id #{@address_book_id}"
   end
 end
 
 And(/^the address book has characteristics$/) do |table|
-  @response = Address_book.get_address_book $candidate, @address_book_id
+  @response = Address_book.get_address_book $test_run.config['settings']['candidate'], @address_book_id
   @got_address_book = @response['value']
   Log.info @got_address_book
   table.hashes.each do |hash|

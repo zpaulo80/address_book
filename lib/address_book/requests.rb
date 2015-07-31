@@ -11,15 +11,13 @@ module Address_book_requests
 
   # @return [Hash] Hash of headers request
   def default_headers
-    headers = {'Content-type' => 'application/json'}
-    headers
+    {'Content-type' => 'application/json'}
   end
 
   # @param hash [Hash] Hash with parameters to use in create address book request
   # @return [JSON] Request in json format
-  def requests hash
-    request = ::JSON.generate(hash)
-    return request
+  def requests (hash)
+    ::JSON.generate(hash)
   end
 
   extend self

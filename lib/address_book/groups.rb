@@ -4,7 +4,7 @@ module Groups
   include Address_book_requests
   include HTTP
 
-  def group_book_url candidate, book_id
+  def group_book_url (candidate, book_id)
     Address_book_requests.default_url + '/' + candidate+ '/' + book_id + '/groups/'
   end
 

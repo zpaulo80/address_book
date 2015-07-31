@@ -1,19 +1,19 @@
 When(/^i create a contact with characteristics$/) do |table|
   table.hashes.each do |hash|
     Log.debug hash
-    @contact = Contacts.create_contact $candidate, @address_book_id, hash
+    @contact = Contacts.create_contact $test_run.config['settings']['candidate'], @address_book_id, hash
   end
 end
 
 When(/^i change a contact with characteristics$/) do |table|
   table.hashes.each do |hash|
     Log.debug hash
-    @contact = Contacts.update_contact $candidate, @address_book_id, hash, hash['name']
+    @contact = Contacts.update_contact $test_run.config['settings']['candidate'], @address_book_id, hash, hash['name']
   end
 end
 
 When(/^i consult the contact "([^"]*)"$/) do |name|
-  @contact = Contacts.consult_contact $candidate, @address_book_id, name
+  @contact = Contacts.consult_contact $test_run.config['settings']['candidate'], @address_book_id, name
 end
 
 Then(/^the contact have characteristics$/) do |table|
@@ -25,7 +25,7 @@ Then(/^the contact have characteristics$/) do |table|
 end
 
 When(/^i delete the contact with name "([^"]*)"$/) do |name|
-  @contact = Contacts.delete_contact $candidate, @address_book_id, name
+  @contact = Contacts.delete_contact $test_run.config['settings']['candidate'], @address_book_id, name
 end
 
 And(/^the address book does not have contacts$/) do
