@@ -14,7 +14,7 @@ module Address_book
   def create_address_book(candidate, properties)
     url = address_book_url candidate
     body = Address_book_requests.requests properties
-    post url, {body: body}
+    post url, {body: body, headers: Address_book_requests.default_headers}
   end
 
   # @param candidate [String] Owner of the address book
@@ -24,7 +24,7 @@ module Address_book
   def update_address_book(candidate, properties, id)
     url = (address_book_url candidate) + '/' + id
     body = Address_book_requests.requests properties
-    put url, {body: body}
+    put url, {body: body, headers: Address_book_requests.default_headers}
   end
 
   # @param candidate [String] Owner of the address book
@@ -32,14 +32,14 @@ module Address_book
   # @return [Hash] Hash with HTTP Response
   def get_address_book(candidate, id)
     url = (address_book_url candidate) + '/' + id
-    get url
+    get url, {headers: Address_book_requests.default_headers}
   end
 
   # @param candidate [String] Owner of the address book
   # @return [Hash] Hash with HTTP Response
   def get_addr_books_by_candidate(candidate)
     url = (address_book_url candidate)
-    get url
+    get url, {headers: Address_book_requests.default_headers}
   end
 
   # @param candidate [String] Owner of the address book
@@ -47,7 +47,7 @@ module Address_book
   # @return [Hash] Hash with HTTP Response
   def delete_address_book(candidate, id)
     url = (address_book_url candidate) + '/' + id
-    delete url
+    delete url, {headers: Address_book_requests.default_headers}
   end
 
   extend self

@@ -6,7 +6,7 @@ module Address_book_requests
 
   # @return [String] application base url
   def default_url
-    'http://qa-addressbook.herokuapp.com'
+    URI::HTTP.build(host: $test_run.config['hosts']['server']['ip']).to_s
   end
 
   # @return [Hash] Hash of headers request

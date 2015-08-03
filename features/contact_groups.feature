@@ -8,7 +8,7 @@ Feature: Contact groups test scenarios
       | josepaulo | josepaulo |
 
   @groups @blocker
-  @TEST_ID-12
+  @TEST_ID_12
   Scenario: Create a new contact group
     Given i consult the last address book
     And i have a address book
@@ -24,7 +24,7 @@ Feature: Contact groups test scenarios
       | family | my dear family |
 
   @groups @critical
-  @TEST_ID-13
+  @TEST_ID_13
   Scenario: Create two groups on a address book
     Given i consult the last address book
     And i have a address book
@@ -37,7 +37,7 @@ Feature: Contact groups test scenarios
     Then my address book have "2" groups
 
   @groups @major
-  @TEST_ID-14
+  @TEST_ID_14
   Scenario: Consult group
     Given i consult the last address book
     And i have a address book
@@ -48,7 +48,7 @@ Feature: Contact groups test scenarios
     Then the operation has success
 
   @groups @major
-  @TEST_ID-15
+  @TEST_ID_15
   Scenario: Delete group
     Given i consult the last address book
     And i have a address book
@@ -60,7 +60,7 @@ Feature: Contact groups test scenarios
     And the group does not exist
 
   @groups @minor
-  @TEST_ID-16
+  @TEST_ID_16
   Scenario: Update group
     Given i consult the last address book
     And i have a address book
@@ -80,7 +80,7 @@ Feature: Contact groups test scenarios
       | family | my family   |
 
   @groups @minor
-  @TEST_ID-17
+  @TEST_ID_17
   Scenario: Create two groups on a address book with same id
     Given i consult the last address book
     And i have a address book

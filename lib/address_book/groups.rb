@@ -15,7 +15,7 @@ module Groups
   def create_contact_group(candidate, book_id, properties)
     url = group_book_url(candidate, book_id)
     body = Address_book_requests.requests properties
-    post url, {body: body}
+    post url, {body: body, headers: Address_book_requests.default_headers}
   end
 
   # @param candidate [String] Owner of the address book
@@ -26,7 +26,7 @@ module Groups
   def change_contact_group(candidate, book_id, properties, group_id)
     url = group_book_url(candidate, book_id) + group_id
     body = Address_book_requests.requests properties
-    put url, {body: body}
+    put url, {body: body, headers: Address_book_requests.default_headers}
   end
 
   # @param candidate [String] Owner of the address book
@@ -35,7 +35,7 @@ module Groups
   # @return [Hash] Hash with HTTP Response
   def consult_contact_group(candidate, book_id, group_id)
     url = group_book_url(candidate, book_id) + group_id
-    get url
+    get url, {headers: Address_book_requests.default_headers}
   end
 
   # @param candidate [String] Owner of the address book
@@ -44,7 +44,7 @@ module Groups
   # @return [Hash] Hash with HTTP Response
   def delete_contact_group(candidate, book_id, group_id)
     url = group_book_url(candidate, book_id) + group_id
-    delete url
+    delete url, {headers: Address_book_requests.default_headers}
   end
 
   extend self

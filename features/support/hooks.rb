@@ -30,7 +30,7 @@ Before do |scenario|
     raise Exceptions::NoTestIdTagError.new "No Test ID tag was given for this scenario: #{scenario.name}"
   end
   
-  Log.info "Scenario name: #{scenario.name.to_s}. With Id: #{$test_id}".upcase!
+  Log.info "Scenario name: #{scenario.name.to_s}. With Id: #{$test_run.saved_values[:test_id]}".upcase!
 end
 
 
@@ -40,6 +40,9 @@ end
 
 at_exit do
   Log.debug 'Hook - at_exit'
+  Log.debug '=============================================================================='
+  Log.debug '============================ Stop running Features ==========================='
+  Log.debug '=============================================================================='
   Log.debug 'Test List:'
   Log.debug $test_run.list
 
@@ -53,8 +56,4 @@ at_exit do
       Dir.delete(File.join('/tmp/',folder))
     end
   end
-
-  Log.debug '=============================================================================='
-  Log.debug '============================ Stop running Features ==========================='
-  Log.debug '=============================================================================='
 end
