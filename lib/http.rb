@@ -7,8 +7,8 @@ module HTTP
 
   class Request
 
-    attr_accessor :http_response, :last_request, :http_request
-    attr_reader :method, :url, :args
+    attr_accessor :headers, :format, :method, :url, :args
+    attr_reader :http_response, :last_request
 
     def initialize (method, url, args={})
       @method = method
@@ -29,6 +29,28 @@ module HTTP
 
     def args
       @args
+    end
+
+    def headers=(hash)
+      @args = {
+          headers: hash,
+          format: :json
+      }.recursive_merge args
+    end
+
+    def format=(format)
+      @args = {
+          headers: hash,
+          format: format
+      }.recursive_merge args
+    end
+
+    def headers
+      @args[:headers]
+    end
+
+    def format
+      @args[:format]
     end
 
     def send_request
@@ -60,7 +82,7 @@ module HTTP
     request.send_request
   end
 
-  def put(url, args={})
+  def put(url, args={})args
     request = Request.new(:put, url, args)
     request.send_request
   end
